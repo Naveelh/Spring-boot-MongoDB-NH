@@ -1,0 +1,74 @@
+
+gcloud config set project PROJECT_ID
+
+gcloud config set project linear-potion-287217
+
+gcloud container clusters get-credentials istio-cluster --zone us-central1-a --project linear-potion-287217
+
+gcloud container clusters resize --zone us-central1-a in28minutes-cluster --num-nodes=0
+
+
+###########istio-commands to be run in google cloud shell#################
+
+NOTE: it will run in google-cloud-shell only,,not in local
+
+kubectl create namespace istio-system
+
+curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.2.2 sh -          
+
+export PATH="$PATH:/home/jprof409/istio-1.2.2/bin"
+
+istioctl verify-install
+
+cd istio-1.2.2
+
+for i in install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
+
+helm template install/kubernetes/helm/istio --name istio --set global.mtls.enabled=false --set tracing.enabled=true --set kiali.enabled=true --set grafana.enabled=true --namespace istio-system > istio.yaml
+
+kubectl apply -f istio.yaml
+
+kubectl label namespace default istio-injection=enabled
+
+
+###################################################################################################
+
+After executing all above commands in google cloud sheel
+
+kubectl get all --namespace istio-system
+
+we will see all services ,pods etc
+
+one service will be istio-ingressgateway 
+
+###################################################################################################
+
+Now creating http gateway
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
