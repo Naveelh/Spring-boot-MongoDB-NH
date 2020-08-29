@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: springboot
+  name: springboot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: springboot
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: springboot
+    spec:
+      containers:
+      - image: naveelh/spring-boot-mongo:3.0
+        imagePullPolicy: ""
+        name: springboot
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes: null
+status: {}
